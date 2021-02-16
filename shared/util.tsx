@@ -6,10 +6,12 @@ export function getPostList() {
         const postDir = path.join(process.cwd(), 'pages/post')
 
         return fs
-        .readdirSync(postDir).map(filename=>
+        .readdirSync(postDir)
+        .map(filename=>(
             filename.substring(0, filename.indexOf('.'))
-            )
+            ))
     } catch {
         console.warn('Deu ruim, sem posts');    
+        return []
     }
 }

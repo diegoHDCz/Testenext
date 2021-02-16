@@ -1,12 +1,13 @@
-import {InferGetStaticPropsType} from 'next'
+import { InferGetStaticPropsType } from 'next'
 import Head from 'next/head';
+import Link from 'next/link';
 import Header from '@components/Header';
 import Navigation from '@components/navigation';
-import {getPostList} from '@shared/util'
+import { getPostList } from '@shared/util';
 
 type PostList = string[]
 
-function Home({posts}:InferGetStaticPropsType<typeof getStaticProps>) {
+function Home({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Head>
@@ -16,11 +17,20 @@ function Home({posts}:InferGetStaticPropsType<typeof getStaticProps>) {
       <main>
         <Navigation />
         <Header />
-        {posts.map((slug)=>(
-          <li key={slug}>
-            {slug.replaceAll('-',' ')}
-          </li>
-        ))}
+        {posts.length > 0 && (
+          <ul>
+            {posts.map((slug) => (
+              <li key={slug}>
+                <Link href={`post/${slug}`}>
+                <a>
+                {slug.replace('-', ' ')}
+                </a>
+                </Link>
+                
+              </li>
+            ))}
+          </ul>
+        )}
       </main>
     </>
   )
